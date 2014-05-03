@@ -57,13 +57,13 @@ type
     procedure CreateWnd; override;
 {$ENDIF}
     procedure DoExit; override;
-    procedure KeyDown(var Key: Word; Shift: TShiftState); override;
     procedure KeyUpAfterInterface(var Key: Word; Shift: TShiftState); override;
   public
     constructor Create(AOwner: TComponent); override;
   published
     property ObjectTypes: TObjectTypes read FObjectTypes write SetObjectTypes;
     property FileSortType: TFileSortType read FFileSortType write FFileSortType;
+    procedure KeyDown(var Key: Word; Shift: TShiftState); override;
   end;
 
 procedure Register;

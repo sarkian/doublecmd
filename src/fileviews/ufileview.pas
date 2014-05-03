@@ -458,6 +458,8 @@ type
 
     procedure SetFileFilter(NewFilter: String; NewFilterOptions: TQuickSearchOptions);
 
+    procedure DispatchKey(var Key: Word); virtual;
+
     property CurrentAddress: String read GetCurrentAddress;
     property CurrentFileSourceIndex: Integer read GetCurrentFileSourceIndex;
     property CurrentPath: String read GetCurrentPath write SetCurrentPath;
@@ -3182,6 +3184,11 @@ begin
       ReDisplayFileList;
     end;
   end;
+end;
+
+procedure TFileView.DispatchKey(var Key: Word);
+begin
+
 end;
 
 { TDropParams }

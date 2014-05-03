@@ -80,6 +80,10 @@ type
     destructor Destroy; override;
     procedure Execute(SearchMode: TQuickSearchMode; const Params: array of String; Char: TUTF8Char = #0);
     procedure Finalize;
+
+    procedure DispatchKeyLeft();
+    procedure DispatchKeyRight();
+
     function CheckSearchOrFilter(var Key: Word): Boolean; overload;
     function CheckSearchOrFilter(var UTF8Key: TUTF8Char): Boolean; overload;
   end;
@@ -525,7 +529,28 @@ begin
 
       CancelFilter;
     end;
+
+    // <C-[>
+    219:
+    if ssCtrl in Shift then
+    begin
+      Key := 0;
+      CancelFilter;
+    end;
+
   end;
+end;
+
+procedure TfrmQuickSearch.DispatchKeyLeft();
+begin
+  CancelFilter();
+end;
+
+procedure TfrmQuickSearch.DispatchKeyRight();
+begin
+  if Assigned(Self.OnExecute) then
+    Self.OnExecute(Self);
+  CancelFilter();
 end;
 
 procedure TfrmQuickSearch.EndUpdate;

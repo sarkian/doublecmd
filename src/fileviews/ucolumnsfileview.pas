@@ -172,6 +172,8 @@ type
 
     procedure UpdateColumnsView;
 
+    procedure DispatchKey(var Key: Word); override;
+
   published
     procedure cm_CopyFileDetailsToClip(const Params: array of string);
 
@@ -1072,6 +1074,23 @@ begin
       Clipboard.AsText:= TrimRightLineEnding(sl.Text, sl.TextLineBreakStyle);
     finally
       FreeAndNil(sl);
+    end;
+  end;
+end;
+
+procedure TColumnsFileView.DispatchKey(var Key: Word);
+var BKey: Word;
+begin
+  BKey := Key;
+  dgPanel.KeyDown(BKey, []);
+  case Key of
+    VK_LEFT:
+    begin
+      quickSearch.DispatchKeyLeft();
+    end;
+    VK_RIGHT:
+    begin
+      quickSearch.DispatchKeyRight();
     end;
   end;
 end;

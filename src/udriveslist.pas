@@ -448,7 +448,7 @@ begin
           Row := Row + 1;
         Key := 0;
       end;
-    VK_RETURN, VK_SELECT, VK_SPACE:
+    VK_RETURN, VK_SELECT, VK_SPACE, 76:
       begin
         SelectDrive(GetDriveIndexByRow(Row));
         Key := 0;
@@ -462,6 +462,36 @@ begin
       begin
         Rect := CellRect(2, Row);
         ShowContextMenu(GetDriveIndexByRow(Row), Rect.Left, Rect.Top);
+        Key := 0;
+      end;
+    // <C-[>
+    219:
+      if ssCtrl in Shift then
+      begin
+        Close;
+        Key := 0;
+      end;
+    // g/G
+    71:
+      begin
+        if ssShift in Shift then
+          Row := HighestRow
+        else
+          Row := LowestRow;
+        Key := 0;
+      end;
+    // j
+    74:
+      begin
+        if Row < HighestRow then
+          Row := Row + 1;
+        Key := 0;
+      end;
+    // k
+    75:
+      begin
+        if Row > LowestRow then
+          Row := Row - 1;;
         Key := 0;
       end;
   end;

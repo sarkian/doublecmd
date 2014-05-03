@@ -4241,6 +4241,11 @@ begin
       Key := 0;
     end
   else
+    if (Key = 219) and (ssCtrl in Shift) then
+    begin
+      Key := VK_ESCAPE;
+      Shift := [];
+    end;
     case Key of
       VK_ESCAPE:
         begin

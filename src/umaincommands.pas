@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, ActnList, uFileView, uFileViewNotebook, uFileSourceOperation,
-  uFileFunctions, uFormCommands;
+  uFileFunctions, uFormCommands, LCLType;
 
 type
 
@@ -162,6 +162,12 @@ type
    procedure cm_Options(const Params: array of string);
    procedure cm_CompareContents(const Params: array of string);
    procedure cm_Refresh(const Params: array of string);
+   procedure cm_KeyUp(const Params: array of string);
+   procedure cm_KeyDown(const Params: array of string);
+   procedure cm_KeyLeft(const Params: array of string);
+   procedure cm_KeyRight(const Params: array of string);
+   procedure cm_KeyHome(const Params: array of string);
+   procedure cm_KeyEnd(const Params: array of string);
    procedure cm_ShowMainMenu(const Params: array of string);
    procedure cm_DirHotList(const Params: array of string);
    procedure cm_MarkInvert(const Params: array of string);
@@ -2056,6 +2062,42 @@ end;
 procedure TMainCommands.cm_Refresh(const Params: array of string);
 begin
   frmMain.ActiveFrame.Reload;
+end;
+
+procedure TMainCommands.cm_KeyUp(const Params: array of string);
+var Key: Word = VK_UP;
+begin
+  frmMain.ActiveFrame.DispatchKey(Key);
+end;
+
+procedure TMainCommands.cm_KeyDown(const Params: array of string);
+var Key: Word = VK_DOWN;
+begin
+  frmMain.ActiveFrame.DispatchKey(Key);
+end;
+
+procedure TMainCommands.cm_KeyLeft(const Params: array of string);
+var Key: Word = VK_LEFT;
+begin
+  frmMain.ActiveFrame.DispatchKey(Key);
+end;
+
+procedure TMainCommands.cm_KeyRight(const Params: array of string);
+var Key: Word = VK_RIGHT;
+begin
+  frmMain.ActiveFrame.DispatchKey(Key);
+end;
+
+procedure TMainCommands.cm_KeyHome(const Params: array of string);
+var Key: Word = VK_HOME;
+begin
+  frmMain.ActiveFrame.DispatchKey(Key);
+end;
+
+procedure TMainCommands.cm_KeyEnd(const Params: array of string);
+var Key: Word = VK_END;
+begin
+  frmMain.ActiveFrame.DispatchKey(Key);
 end;
 
 //------------------------------------------------------

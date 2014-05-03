@@ -94,6 +94,33 @@ begin
         FFileView.SetFocus;
       end;
 
+    // <C-[>
+    219:
+      if ssCtrl in Shift then
+      begin
+        Key := 0;
+        FPathEdit.Visible := False;
+        FFileView.SetFocus;
+      end;
+
+    // j
+    74:
+      if ssCtrl in Shift then
+      begin
+        Key := VK_DOWN;
+        Shift := [];
+        FPathEdit.KeyDown(Key, Shift);
+      end;
+
+    // k
+    75:
+      if ssCtrl in Shift then
+      begin
+        Key := VK_UP;
+        Shift := [];
+        FPathEdit.KeyDown(Key, Shift);
+      end;
+
     VK_RETURN,
     VK_SELECT:
       begin

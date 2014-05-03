@@ -26,9 +26,14 @@ unit uDrivesList;
 
 interface
 
+{$IFDEF UNIX}
 uses
   Classes, SysUtils, Grids, Controls, LCLType,
+  uFilePanelSelect, uDrive, uMyUnix;
+{$ELSE}
+  Classes, SysUtils, Grids, Controls, LCLType,
   uFilePanelSelect, uDrive;
+{$ENDIF}
 
 type
   TDriveSelected = procedure (Sender: TObject; ADriveIndex: Integer;
@@ -418,6 +423,8 @@ procedure TDrivesListPopup.KeyDownEvent(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
   Rect: TRect;
+  DriveIndex: Integer;
+  Drive: PDrive;
 begin
   case Key of
     VK_HOME:
@@ -494,6 +501,16 @@ begin
           Row := Row - 1;;
         Key := 0;
       end;
+{$IFDEF UNIX}
+    // u
+    85:
+      begin
+        DriveIndex := GetDriveIndexByRow(Row);
+        Drive := FDrivesList[DriveIndex];
+        UnmountDrive(Drive);
+        Close;
+      end;
+{$ENDIF}
   end;
 end;
 

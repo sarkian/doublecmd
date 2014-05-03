@@ -328,19 +328,21 @@ function UDisksGetDeviceInfo(const DeviceObjectPath: UTF8String;
 var
   i: Integer;
 begin
-  if Assigned(Devices) then
-  begin
-    for i := Low(Devices) to High(Devices) do
-    begin
-      if Devices[i].DeviceObjectPath = DeviceObjectPath then
-      begin
-        DeviceInfo := Devices[i];
-        Exit(True);
-      end;
-    end;
-    Result := False;
-  end
-  else if IsUDisksAvailable then
+  // MEGAPATCH :)
+  { if Assigned(Devices) then }
+  { begin }
+    { for i := Low(Devices) to High(Devices) do }
+    { begin }
+      { if Devices[i].DeviceObjectPath = DeviceObjectPath then }
+      { begin }
+        { DeviceInfo := Devices[i]; }
+        { Exit(True); }
+      { end; }
+    { end; }
+    { Result := False; }
+  { end }
+  { else if IsUDisksAvailable then }
+  if IsUDisksAvailable then
   begin
     // Devices not supplied, retrieve info from UDisks.
     Result := uUDisks.GetDeviceInfo(DeviceObjectPath, DeviceInfo);
@@ -1102,9 +1104,13 @@ var
   DeviceInfo: TUDisksDeviceInfo;
 begin
   if IsUDisksAvailable = False then
+  begin
     Result:= uUDev.GetDeviceInfo(ObjectPath, DeviceInfo)
+  end
   else
+  begin
     Result:= uUDisks.GetDeviceInfo(ObjectPath, DeviceInfo);
+  end;
 
   if Result then
     UDisksDeviceToDrive(nil, DeviceInfo, ADrive);
